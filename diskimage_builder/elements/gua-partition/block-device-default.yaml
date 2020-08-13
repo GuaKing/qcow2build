@@ -1,0 +1,34 @@
+- local_loop:
+    name: image0
+- partitioning:
+    base: image0
+    label: mbr
+    partitions:
+      - name: root
+        flags: [ boot, primary ]
+        size: 20G
+        mkfs:
+          mount:
+            mount_point: /
+            fstab:
+              options: "defaults"
+              fsck-passno: 1
+      - name: log
+        size: 1G
+        mkfs:
+          type: ext4
+          mount:
+            mount_point: /var/log
+            fstab:
+              options: "defaults"
+              fsck-passno: 2
+      - name: crash
+        size: 1G
+        mkfs:
+          type: ext4
+          mount:
+            mount_point: /var/crash
+            fstab:
+              options: "defaults"
+              fsck-passno: 2
+
